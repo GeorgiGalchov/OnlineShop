@@ -20,8 +20,8 @@ spring:
       client:
         registration:
           github:
-            client-id: ${GITHUB_CLIENT:test}
-            client-secret: ${GITHUB_SECRET:test}
+            client-id: ${GITHUB_CLIENT:Ov23liF75FJouHcWknau}
+            client-secret: ${GITHUB_SECRET:17318ba00521903338f1dfd5a5bf26a2c187064c}
             scope: user:email
   mvc:
     hiddenmethod:
@@ -29,8 +29,8 @@ spring:
         enabled: true
 
 online_shop_store:
-  default.admin.pass: ${DEFAULT_ADMIN_PASS:mistake}
-  remember.me.key: ${REMEBER_ME_KEY:mistake}
+  default.admin.pass: ${DEFAULT_ADMIN_PASS:topsecret}
+  remember.me.key: ${REMEBER_ME_KEY:topsecret}
 
 
 logging:
@@ -48,8 +48,8 @@ open.exchange.rates:
   enabled: false
 
 google.recaptcha:
-  site: ${RECAPTCHA_SITE_KEY:}
-  secret: ${RECAPTCHA_SITE_SECRET:}
+  site: ${RECAPTCHA_SITE_KEY:1720952527284}
+  secret: ${RECAPTCHA_SITE_SECRET:6LcBiw8qAAAAAHMNvRPTOnfJvOvAxdZCMSPhAtBI}
 
 
 mail:
