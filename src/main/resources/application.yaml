@@ -1,0 +1,69 @@
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/online_shop_store?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:Sweeper269274}
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+  sql:
+    init:
+      mode: never
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: ${GITHUB_CLIENT:test}
+            client-secret: ${GITHUB_SECRET:test}
+            scope: user:email
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+
+online_shop_store:
+  default.admin.pass: ${DEFAULT_ADMIN_PASS:mistake}
+  remember.me.key: ${REMEBER_ME_KEY:mistake}
+
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
+
+
+open.exchange.rates:
+  schema: https
+  host: openexchangerates.org
+  path: /api/latest.json
+  app_id: ${APP_ID:test}
+  symbols: EUR,BGN
+  enabled: false
+
+google.recaptcha:
+  site: ${RECAPTCHA_SITE_KEY:}
+  secret: ${RECAPTCHA_SITE_SECRET:}
+
+
+mail:
+  online_shop_store: "online_shop_store@example.com"
+  host: localhost
+  port: 1025
+  username: ${MAIL_USER:george}
+  password: ${MAIL_PASSWORD:george}
+
+management:
+  server:
+    port: 8081
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: "*"
