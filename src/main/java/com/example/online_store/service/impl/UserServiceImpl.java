@@ -5,6 +5,7 @@ import com.example.online_store.model.entity.UserEntity;
 import com.example.online_store.model.events.UserRegisteredEvent;
 import com.example.online_store.repo.UserRepository;
 import com.example.online_store.service.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private final ModelMapper modelMapper;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -24,10 +26,11 @@ public class UserServiceImpl implements UserService {
     private final UserDetailsService OnlineStoreUserDetailsService;
 
     public UserServiceImpl(
-            UserRepository userRepository,
+            ModelMapper modelMapper, UserRepository userRepository,
             PasswordEncoder passwordEncoder,
             ApplicationEventPublisher appEventPublisher,
             UserDetailsService userDetailsService) {
+        this.modelMapper = modelMapper;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.appEventPublisher = appEventPublisher;
@@ -49,7 +52,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void createUserIfNotExist(String email, String names) {
-       }
+    }
 
     @Override
     public Authentication login(String email) {
@@ -66,14 +69,20 @@ public class UserServiceImpl implements UserService {
         return auth;
     }
 
+    //    private UserEntity map(UserRegistrationDTO userRegistrationDTO) {
+//        return new UserEntity()
+//                .setActive(false)
+//                .setFirstName(userRegistrationDTO.firstName())
+//                .setLastName(userRegistrationDTO.lastName())
+//                .setEmail(userRegistrationDTO.email())
+//                .setPassword(passwordEncoder.encode(userRegistrationDTO.password()));
+//    }
     private UserEntity map(UserRegistrationDTO userRegistrationDTO) {
-        return new UserEntity()
-                .setActive(false)
-                .setFirstName(userRegistrationDTO.firstName())
-                .setLastName(userRegistrationDTO.lastName())
-                .setEmail(userRegistrationDTO.email())
-                .setPassword(passwordEncoder.encode(userRegistrationDTO.password()));
-    }
+        UserEntity mappedEntity = modelMapper.map(userRegistrationDTO, UserEntity.class);
 
+        mappedEntity.setPassword(passwordEncoder.encode(userRegistrationDTO.password()));
+
+        return mappedEntity;
+    }
 
 }
