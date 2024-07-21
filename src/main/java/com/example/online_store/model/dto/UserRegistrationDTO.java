@@ -21,4 +21,5 @@ public record UserRegistrationDTO(@NotEmpty String firstName,
         return firstName + " " + lastName;
     }
 
+
 }

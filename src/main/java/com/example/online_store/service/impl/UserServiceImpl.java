@@ -69,20 +69,23 @@ public class UserServiceImpl implements UserService {
         return auth;
     }
 
-    //    private UserEntity map(UserRegistrationDTO userRegistrationDTO) {
+//        private UserEntity map(UserRegistrationDTO userRegistrationDTO) {
 //        return new UserEntity()
 //                .setActive(false)
 //                .setFirstName(userRegistrationDTO.firstName())
 //                .setLastName(userRegistrationDTO.lastName())
 //                .setEmail(userRegistrationDTO.email())
 //                .setPassword(passwordEncoder.encode(userRegistrationDTO.password()));
-//    }
+//   }
+
     private UserEntity map(UserRegistrationDTO userRegistrationDTO) {
-        UserEntity mappedEntity = modelMapper.map(userRegistrationDTO, UserEntity.class);
-
-        mappedEntity.setPassword(passwordEncoder.encode(userRegistrationDTO.password()));
-
-        return mappedEntity;
+        UserEntity userEntity = modelMapper.map(userRegistrationDTO, UserEntity.class);
+        userEntity.setActive(false);
+        userEntity.setFirstName(userRegistrationDTO.firstName());
+        userEntity.setLastName(userRegistrationDTO.lastName());
+        userEntity.setEmail(userRegistrationDTO.email());
+        userEntity.setPassword(passwordEncoder.encode(userRegistrationDTO.password()));
+        return userEntity;
     }
 
 }

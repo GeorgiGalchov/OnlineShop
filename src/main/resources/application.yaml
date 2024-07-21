@@ -48,8 +48,8 @@ open.exchange.rates:
   enabled: false
 
 google.recaptcha:
-  site: ${RECAPTCHA_SITE_KEY:1720952527284}
-  secret: ${RECAPTCHA_SITE_SECRET:6LcBiw8qAAAAAHMNvRPTOnfJvOvAxdZCMSPhAtBI}
+  site: 6LcT-hQqAAAAAA50LCcsMkUS32gu-hLStiZIOflv
+  secret: 6LcT-hQqAAAAANJHkiZdvLd4kKyAAvt6bysgRuqi
 
 
 mail:
