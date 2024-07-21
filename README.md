@@ -6,5 +6,7 @@
 
 4th Commit Validation Annotations and Validators.
 
-5th Commit some Aspect Oriented Programming
+5th Commit some Aspect Oriented Programming.
+
+6th Commit exception.
 
