@@ -14,15 +14,17 @@ import com.example.online_store.repo.UserRepository;
 import com.example.online_store.service.MonitoringService;
 import com.example.online_store.service.OfferService;
 import com.example.online_store.service.aop.WarnIfExecutionExceeds;
-import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
 
 @Service
 public class OfferServiceImpl implements OfferService {
@@ -113,7 +115,8 @@ public class OfferServiceImpl implements OfferService {
 
     private boolean isOwner(OfferEntity offerEntity, String userName) {
         if (offerEntity == null || userName == null) {
-             return false;
+
+            return false;
         }
 
         UserEntity viewerEntity =
@@ -122,7 +125,8 @@ public class OfferServiceImpl implements OfferService {
                         .orElseThrow(() -> new IllegalArgumentException("Unknown user..."));
 
         if (isAdmin(viewerEntity)) {
-                  return true;
+            // all admins own all offers
+            return true;
         }
 
         return Objects.equals(

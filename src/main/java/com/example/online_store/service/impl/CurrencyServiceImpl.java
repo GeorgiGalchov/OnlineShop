@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Objects;
 import java.util.Optional;
+
 import com.example.online_store.model.dto.ConvertRequestDTO;
 import com.example.online_store.model.dto.ExchangeRatesDTO;
 import com.example.online_store.model.dto.MoneyDTO;
@@ -15,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
+
 @Service
 public class CurrencyServiceImpl implements CurrencyService {
 
@@ -81,12 +83,12 @@ public class CurrencyServiceImpl implements CurrencyService {
         }
 
         if (from.equals(exchangeRatesDTO.base())) {
-            // e.g. USD -> BGN
+
             if (exchangeRatesDTO.rates().containsKey(to)) {
                 return Optional.of(exchangeRatesDTO.rates().get(to));
             }
         } else if (Objects.equals(to, exchangeRatesDTO.base())){
-            // e.g. BGN -> USD
+
             if (exchangeRatesDTO.rates().containsKey(from)) {
                 return Optional.of(BigDecimal.ONE.divide(
                         exchangeRatesDTO.rates().get(from),

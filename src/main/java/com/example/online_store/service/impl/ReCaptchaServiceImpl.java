@@ -3,7 +3,7 @@ package com.example.online_store.service.impl;
 import java.net.URI;
 import java.util.Optional;
 
-import com.example.online_store.config.MetricsConfig;
+import com.example.online_store.config.ReCaptchaConfig;
 import com.example.online_store.model.dto.ReCaptchaResponseDTO;
 import com.example.online_store.service.ReCaptchaService;
 import org.slf4j.Logger;
@@ -20,11 +20,11 @@ public class ReCaptchaServiceImpl implements ReCaptchaService {
     private static final Logger LOGGER =
             LoggerFactory.getLogger(ReCaptchaServiceImpl.class);
     private final WebClient webClient;
-    private final MetricsConfig reCaptchaConfig;
+    private final ReCaptchaConfig reCaptchaConfig;
 
     public ReCaptchaServiceImpl(
             WebClient webClient,
-            MetricsConfig reCaptchaConfig) {
+            ReCaptchaConfig reCaptchaConfig) {
         this.webClient = webClient;
         this.reCaptchaConfig = reCaptchaConfig;
     }

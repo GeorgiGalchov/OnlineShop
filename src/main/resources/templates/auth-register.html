@@ -14,7 +14,6 @@
 <div class="container">
     <h2 class="text-center text-white">Register User</h2>
 
-    <!-- Registration form start-->
     <form
             id="registration-form"
             th:action="@{/users/register}"
@@ -89,7 +88,7 @@
             <div class="col col-md-4">
                 <div class="button-holder d-flex">
                     <button class="g-recaptcha btn btn-info btn-lg"
-                            th:attr="data-sitekey=${@metricsConfig.getSite()}"
+                            th:attr="data-sitekey=${@reCaptchaConfig.getSite()}"
                             data-callback='onSubmit'
                             data-action='submit'>Register</button>
                 </div>

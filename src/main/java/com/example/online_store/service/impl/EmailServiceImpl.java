@@ -21,7 +21,7 @@ public class EmailServiceImpl implements EmailService {
     public EmailServiceImpl(
             TemplateEngine templateEngine,
             JavaMailSender javaMailSender,
-            @Value("${mail.online_store}") String online_storeEmail) {
+            @Value("${mail.online_shop_store}") String online_storeEmail) {
         this.templateEngine = templateEngine;
         this.javaMailSender = javaMailSender;
         this.online_storeEmail = online_storeEmail;
@@ -39,7 +39,7 @@ public class EmailServiceImpl implements EmailService {
             mimeMessageHelper.setTo(userEmail);
             mimeMessageHelper.setFrom(online_storeEmail);
             mimeMessageHelper.setReplyTo(online_storeEmail);
-            mimeMessageHelper.setSubject("Welcome to online_store!");
+            mimeMessageHelper.setSubject("Welcome to online_shop_store!");
             mimeMessageHelper.setText(generateRegistrationEmailBody(userName, activationCode), true);
 
             javaMailSender.send(mimeMessageHelper.getMimeMessage());

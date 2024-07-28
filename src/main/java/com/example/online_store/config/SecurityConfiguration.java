@@ -1,74 +1,94 @@
 package com.example.online_store.config;
 
+import com.example.online_store.model.enums.UserRoleEnum;
+import com.example.online_store.repo.UserRepository;
+import com.example.online_store.service.impl.OnlineStoreUserDetailsService;
+import com.example.online_store.service.oauth.OAuthSuccessHandler;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.context.DelegatingSecurityContextRepository;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
-import org.springframework.security.web.context.RequestAttributeSecurityContextRepository;
-import org.springframework.security.web.context.SecurityContextRepository;
 
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfiguration {
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http,
-                                           SecurityContextRepository securityContextRepository) throws Exception {
-        http.
+    private final String rememberMeKey;
 
-                        authorizeHttpRequests().
-
-                        requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll().
-                requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll().
-
-                        requestMatchers("/", "/users/login", "/users/register", "/users/login-error", "/offers/*").permitAll().
-                anyRequest().authenticated().
-                and().
-
-                        formLogin().
-                loginPage("/users/login").
-
-                        usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY).
-                passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY).
-
-                        defaultSuccessUrl("/").//use true argument if you always want to go there, otherwise go to previous page
-                failureForwardUrl("/users/login-error").
-                and().logout().
-                logoutUrl("/users/logout").
-                logoutSuccessUrl("/").
-                invalidateHttpSession(true).
-                and().
-                securityContext().
-                securityContextRepository(securityContextRepository);
-
-        return http.build();
+    public SecurityConfiguration(
+            @Value("${online_shop_store.remember.me.key}") String rememberMeKey) {
+        this.rememberMeKey = rememberMeKey;
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    public SecurityFilterChain filterChain(HttpSecurity httpSecurity,
+                                           OAuthSuccessHandler oAuthSuccessHandler) throws Exception {
+        return httpSecurity.authorizeHttpRequests(
+
+                authorizeRequests -> authorizeRequests
+
+                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+
+                        .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+
+                        .requestMatchers("/", "/users/login", "/users/register", "/users/login-error").permitAll()
+                        .requestMatchers("/offers/all").permitAll()
+                        .requestMatchers("/api/currency/convert").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/offer/**").permitAll()
+                        .requestMatchers("/error").permitAll()
+                        .requestMatchers("/brands").hasRole(UserRoleEnum.ADMIN.name())
+
+                        .anyRequest().authenticated()
+        ).formLogin(
+                formLogin -> {
+                    formLogin
+
+                            .loginPage("/users/login")
+
+                            .usernameParameter("email")
+                            .passwordParameter("password")
+                            .defaultSuccessUrl("/")
+                            .failureForwardUrl("/users/login-error");
+                }
+        ).logout(
+                logout -> {
+                    logout
+
+                            .logoutUrl("/users/logout")
+
+                            .logoutSuccessUrl("/")
+
+                            .invalidateHttpSession(true);
+                }
+        ).rememberMe(
+                rememberMe ->
+                        rememberMe
+                                .key(rememberMeKey)
+                                .rememberMeParameter("rememberme")
+                                .rememberMeCookieName("rememberme")
+        ).oauth2Login(
+                oauth -> oauth.successHandler(oAuthSuccessHandler)
+        ).build();
     }
 
     @Bean
     public UserDetailsService userDetailsService(UserRepository userRepository) {
-        return new ApplicationUserDetailsService(userRepository);
+
+        return new OnlineStoreUserDetailsService(userRepository);
     }
 
     @Bean
-    public SecurityContextRepository securityContextRepository() {
-        return new DelegatingSecurityContextRepository(
-                new RequestAttributeSecurityContextRepository(),
-                new HttpSessionSecurityContextRepository()
-        );
+    public PasswordEncoder passwordEncoder() {
+        return Pbkdf2PasswordEncoder.defaultsForSpringSecurity_v5_8();
     }
 
 }
