@@ -9,7 +9,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
-
 public record CreateOfferDTO(@NotEmpty @Size(min = 5, max = 512) String description,
                              @Positive @NotNull Long modelId, @NotNull EngineEnum engine,
                              @NotNull TransmissionEnum transmission, @NotEmpty String imageUrl,

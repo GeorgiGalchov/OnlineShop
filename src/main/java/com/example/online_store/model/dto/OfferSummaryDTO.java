@@ -5,6 +5,7 @@ import com.example.online_store.model.enums.TransmissionEnum;
 
 import java.math.BigDecimal;
 
+
 public record OfferSummaryDTO(
         String id,
         String brand,

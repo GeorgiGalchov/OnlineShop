@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void createUserIfNotExist(String email, String names) {
-       }
+    }
 
     @Override
     public Authentication login(String email) {
@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
         return auth;
     }
 
-//    private UserEntity map(UserRegistrationDTO userRegistrationDTO) {
+    //    private UserEntity map(UserRegistrationDTO userRegistrationDTO) {
 //        return new UserEntity()
 //                .setActive(false)
 //                .setFirstName(userRegistrationDTO.firstName())

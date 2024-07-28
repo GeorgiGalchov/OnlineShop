@@ -1,10 +1,10 @@
 package com.example.online_store.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.util.List;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(Include.NON_NULL)
 public class ReCaptchaResponseDTO {
 
     private boolean success;

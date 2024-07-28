@@ -11,6 +11,7 @@ import com.example.online_store.repo.UserRepository;
 import com.example.online_store.service.EmailService;
 import com.example.online_store.service.UserActivationService;
 import com.example.online_store.service.exception.ObjectNotFoundException;
+import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
@@ -42,8 +43,7 @@ public class UserActivationServiceImpl implements UserActivationService {
 
     @Override
     public void cleanUpObsoleteActivationLinks() {
-        //TODO: Implement
-    }
+           }
 
     public String createActivationCode(String userEmail) {
 

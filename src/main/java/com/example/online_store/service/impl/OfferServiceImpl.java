@@ -14,17 +14,22 @@ import com.example.online_store.repo.UserRepository;
 import com.example.online_store.service.MonitoringService;
 import com.example.online_store.service.OfferService;
 import com.example.online_store.service.aop.WarnIfExecutionExceeds;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.ManyToOne;
+import jakarta.transaction.Transactional;
+import java.math.BigDecimal;
+import java.sql.Types;
+import java.util.Objects;
+
+import java.util.Optional;
+import java.util.UUID;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.UUID;
+import org.springframework.stereotype.Service;
 
 @Service
 public class OfferServiceImpl implements OfferService {
@@ -115,7 +120,8 @@ public class OfferServiceImpl implements OfferService {
 
     private boolean isOwner(OfferEntity offerEntity, String userName) {
         if (offerEntity == null || userName == null) {
-
+            // anonymous users own no offers
+            // missing offers are meaningless
             return false;
         }
 
