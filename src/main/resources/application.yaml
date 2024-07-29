@@ -64,6 +64,11 @@ mail:
   username: ${MAIL_USER:george}
   password: ${MAIL_PASSWORD:george}
 
+  spring:
+    messages:
+      basename: i18n/messages
+      cache-duration: 3600
+
 management:
   server:
     port: 8081
