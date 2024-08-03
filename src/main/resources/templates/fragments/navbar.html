@@ -29,7 +29,7 @@
             <li class="nav-item d-flex align-items-center" sec:authorize="isAuthenticated()">
                 <div class="form-inline my-2 my-lg-0">
                     <div class="logged-user text-white mr-2">
-                        <span th:text="#{welcome}"></span><th:block sec:authentication="name"></th:block>!
+                        <span th:text="#{}"></span><th:block sec:authentication="name"></th:block>!
                     </div>
                     <form th:method="post" th:action="@{/users/logout}">
                         <input type="submit" class="btn btn-link text-white" th:value="#{logout}"/>

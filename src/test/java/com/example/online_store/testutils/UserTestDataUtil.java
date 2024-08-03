@@ -1,13 +1,13 @@
 package com.example.online_store.testutils;
 
+import java.util.List;
+
 import com.example.online_store.model.entity.UserEntity;
 import com.example.online_store.model.enums.UserRoleEnum;
 import com.example.online_store.repo.UserRepository;
 import com.example.online_store.repo.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 public class UserTestDataUtil {

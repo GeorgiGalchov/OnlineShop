@@ -1,9 +1,5 @@
 package com.example.online_store.testutils;
 
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.UUID;
-
 import com.example.online_store.model.entity.*;
 import com.example.online_store.model.enums.EngineEnum;
 import com.example.online_store.model.enums.TransmissionEnum;
@@ -12,6 +8,10 @@ import com.example.online_store.repo.ExchangeRateRepository;
 import com.example.online_store.repo.OfferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.UUID;
 
 @Component
 public class TestDataUtil {
@@ -33,6 +33,7 @@ public class TestDataUtil {
 
 
     public OfferEntity createTestOffer(UserEntity owner) {
+
 
         BrandEntity brandEntity = brandRepository.save(new BrandEntity()
                 .setName("Test Brand")
