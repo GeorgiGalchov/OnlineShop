@@ -13,35 +13,48 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto d-flex flex-row flex-wrap align-items-center">
             <li class="nav-item mr-2 mb-2">
-                <a class="nav-link btn btn-primary rounded-pill px-4" href="/offer/add">Add Offer</a>
+                <a class="nav-link btn btn-primary rounded-pill px-4" th:text="#{add_offer}" href="/offer/add"></a>
             </li>
             <li class="nav-item mr-2 mb-2">
-                <a class="nav-link btn btn-primary rounded-pill px-4" href="/offers/all">All Offers</a>
+                <a class="nav-link btn btn-primary rounded-pill px-4" th:text="#{all_offers}" href="/offers/all"></a>
             </li>
             <li class="nav-item dropdown mr-2 mb-2" sec:authorize="hasRole('ADMIN')">
                 <a class="nav-link btn btn-primary rounded-pill px-4 dropdown-toggle" href="/" id="navbarDropdown" role="button"
-                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Admin
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="#{admin}">
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/brands">Add brand</a>
+                    <a class="dropdown-item" th:text="#{add_brand}" href="/brands"></a>
                 </div>
             </li>
             <li class="nav-item d-flex align-items-center" sec:authorize="isAuthenticated()">
                 <div class="form-inline my-2 my-lg-0">
                     <div class="logged-user text-white mr-2">
-                        Welcome, <th:block sec:authentication="name"></th:block>!
+                        <span th:text="#{welcome}"></span><th:block sec:authentication="name"></th:block>!
                     </div>
                     <form th:method="post" th:action="@{/users/logout}">
-                        <input type="submit" class="btn btn-link text-white" value="Logout"/>
+                        <input type="submit" class="btn btn-link text-white" th:value="#{logout}"/>
                     </form>
                 </div>
             </li>
             <li class="nav-item mr-2 mb-2" sec:authorize="!isAuthenticated()">
-                <a class="nav-link btn btn-primary rounded-pill px-4" href="/users/register">Register</a>
+                <a class="nav-link btn btn-primary rounded-pill px-4" th:text="#{register}" href="/users/register"></a>
             </li>
             <li class="nav-item mr-2 mb-2" sec:authorize="!isAuthenticated()">
-                <a class="nav-link btn btn-primary rounded-pill px-4" href="/users/login">Login</a>
+                <a class="nav-link btn btn-primary rounded-pill px-4" th:text="#{login}" href="/users/login"></a>
+            </li>
+
+            <li class="nav-item">
+                <form th:method="get">
+                    <label class="text-white" for="lang" th:text="#{nav_bar_language}">Language</label>
+                    <select
+                            id="lang"
+                            name="lang"
+                            onchange="this.form.submit()">
+                        <option value="en_US" th:selected="${#locale.toString()} == 'en_US'">English</option>
+                        <option value="bg_BG" th:selected="${#locale.toString()} == 'bg_BG'">Български</option>
+                        <option value="ru_RU" th:selected="${#locale.toString()} == 'ru_RU'">Русский</option>
+                    </select>
+                </form>
             </li>
         </ul>
     </div>
