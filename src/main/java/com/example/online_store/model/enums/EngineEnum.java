@@ -1,7 +1,7 @@
 package com.example.online_store.model.enums;
 
 public enum EngineEnum {
-    PETROL,
+    GASOLINE,
     DIESEL,
-    ELECTRIC;
+    GAS;
 }

@@ -50,7 +50,7 @@ public class TestDataUtil {
                 .setYear(2020)
                 .setUuid(UUID.randomUUID())
                 .setDescription("Test Description")
-                .setEngine(EngineEnum.PETROL)
+                .setEngine(EngineEnum.DIESEL)
                 .setMileage(10000)
                 .setTransmission(TransmissionEnum.MANUAL)
                 .setSeller(owner);
