@@ -1,8 +1,8 @@
 INSERT INTO users (id, active, email, first_name, last_name, password)
 VALUES
-    (1, 1, 'thexades@gmail.com', 'Georgi', 'Galchov', '95c1933b8ffe84f085f2839899d1673260be58dbd9c2c787ac35515805502c996417596dae9a92880aaa50a046fc7151'),
-    (2, 1, 'Test@abv.bg', 'Test', 'Testov', '95c1933b8ffe84f085f2839899d1673260be58dbd9c2c787ac35515805502c996417596dae9a92880aaa50a046fc7151'),
-    (3, 1, 'Yanko@mail.com', 'Yanko', 'Yankov', '95c1933b8ffe84f085f2839899d1673260be58dbd9c2c787ac35515805502c996417596dae9a92880aaa50a046fc7151');
+    (1, 1, 'thexades@gmail.com', 'Georgi', 'Galchov', '7958f519e2040ec60c6051585f9c73ac528adbbfb2f1fc4d806ca6bca260216fd961b02a47adb7b5ec4581277c91f834'),
+    (2, 1,),
+    (3, 1,);
 
 
 INSERT INTO roles (`id`, `role`)

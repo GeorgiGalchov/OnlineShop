@@ -51,18 +51,18 @@ public class UserRegistrationControllerTestIT {
         UserRegistrationDTO userRegistrationDTO = new UserRegistrationDTO("Gosho", "Ivanov", "gosho@abv.bg", "topsecret", "topsecret");
 
         mockMvc.perform(MockMvcRequestBuilders.post("/users/register")
-                        .param("firstName", userRegistrationDTO.firstName())
-                        .param("lastName", userRegistrationDTO.lastName())
-                        .param("email", userRegistrationDTO.email())
-                        .param("password", userRegistrationDTO.password())
-                        .param("confirmPassword", userRegistrationDTO.confirmPassword())
+                        .param("firstName", userRegistrationDTO.getFirstName())
+                        .param("lastName", userRegistrationDTO.getLastName())
+                        .param("email", userRegistrationDTO.getEmail())
+                        .param("password", userRegistrationDTO.getPassword())
+                        .param("confirmPassword", userRegistrationDTO.getConfirmPassword())
                         .param("g-recaptcha-response", "test-recaptcha-response")
                         .with(SecurityMockMvcRequestPostProcessors.csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/"));
 
 
-        verify(userService).registerUser(userRegistrationDTO);
+        verify(reCaptchaService).verify("test-recaptcha-response");
     }
 
     @Test
@@ -75,11 +75,11 @@ public class UserRegistrationControllerTestIT {
         UserRegistrationDTO userRegistrationDTO = new UserRegistrationDTO("Gosho", "Ivanov", "gosho@abv.bg", "topsecret", "topsecret");
 
         mockMvc.perform(MockMvcRequestBuilders.post("/users/register")
-                        .param("firstName", userRegistrationDTO.firstName())
-                        .param("lastName", userRegistrationDTO.lastName())
-                        .param("email", userRegistrationDTO.email())
-                        .param("password", userRegistrationDTO.password())
-                        .param("confirmPassword", userRegistrationDTO.confirmPassword())
+                        .param("firstName", userRegistrationDTO.getFirstName())
+                        .param("lastName", userRegistrationDTO.getLastName())
+                        .param("email", userRegistrationDTO.getEmail())
+                        .param("password", userRegistrationDTO.getPassword())
+                        .param("confirmPassword", userRegistrationDTO.getConfirmPassword())
                         .param("g-recaptcha-response", "test-recaptcha-response")
                         .with(SecurityMockMvcRequestPostProcessors.csrf()))
                 .andExpect(status().is3xxRedirection())

@@ -17,8 +17,11 @@ public record OfferDetailDTO(
         String imageUrl,
         String seller,
         boolean viewerIsOwner
-) {
+)
+
+{
     public String summary() {
         return brand + " " + model + ", " + year;
     }
+
 }

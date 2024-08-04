@@ -50,8 +50,8 @@ open.exchange.rates:
   enabled: false
 
 google.recaptcha:
-  site: 6LcT-hQqAAAAAA50LCcsMkUS32gu-hLStiZIOflv
-  secret: 6LcT-hQqAAAAANJHkiZdvLd4kKyAAvt6bysgRuqi
+  site: 6LeQIh8qAAAAAJWHqi9WxL5Fauu4uJWG_y71Z6Xy
+  secret: 6LeQIh8qAAAAAGkDeOlkXe0WEv2auGB2VAvDRMPc
 
   logging:
     level:
@@ -63,13 +63,9 @@ mail:
   online_shop_store: "online_shop_store@example.com"
   host: localhost
   port: 1025
-  username: ${MAIL_USER:george}
-  password: ${MAIL_PASSWORD:george}
+  username: ${MAIL_USER:thexades}
+  password: ${MAIL_PASSWORD:Sweeper269274}
 
-  spring:
-    messages:
-      basename: i18n/messages
-      cache-duration: 3600
 
 management:
   server:

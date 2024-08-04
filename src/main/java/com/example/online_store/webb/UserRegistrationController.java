@@ -4,13 +4,8 @@ import com.example.online_store.model.dto.ReCaptchaResponseDTO;
 import com.example.online_store.model.dto.UserRegistrationDTO;
 import com.example.online_store.service.ReCaptchaService;
 import com.example.online_store.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/users")
 @Controller
@@ -32,8 +27,10 @@ public class UserRegistrationController {
     }
 
     @PostMapping("/register")
-    public String register(UserRegistrationDTO userRegistrationDTO,
+    public String register(@ModelAttribute UserRegistrationDTO userRegistrationDTO,
                            @RequestParam("g-recaptcha-response") String reCaptchaResponse) {
+
+        System.out.println("ReCAPTCHA Response: " + reCaptchaResponse);
 
         boolean isBot = !reCaptchaService
                 .verify(reCaptchaResponse)
@@ -41,13 +38,16 @@ public class UserRegistrationController {
                 .orElse(false);
 
         if (isBot) {
+            System.out.println("reCAPTCHA verification failed.");
             return "redirect:/";
         }
 
+        System.out.println("User Registration DTO: " + userRegistrationDTO);
         userService.registerUser(userRegistrationDTO);
 
         return "redirect:/";
     }
+
 
 
 }

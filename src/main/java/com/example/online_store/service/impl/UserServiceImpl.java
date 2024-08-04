@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
 
         appEventPublisher.publishEvent(new UserRegisteredEvent(
                 "UserService",
-                userRegistrationDTO.email(),
+                userRegistrationDTO.getEmail(),
                 userRegistrationDTO.fullName()
         ));
     }
@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService {
     private UserEntity map(UserRegistrationDTO userRegistrationDTO) {
         UserEntity mappedEntity = modelMapper.map(userRegistrationDTO, UserEntity.class);
 
-        mappedEntity.setPassword(passwordEncoder.encode(userRegistrationDTO.password()));
+        mappedEntity.setPassword(passwordEncoder.encode(userRegistrationDTO.getPassword()));
 
         return mappedEntity;
     }

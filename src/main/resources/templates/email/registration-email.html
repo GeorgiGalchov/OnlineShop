@@ -8,7 +8,7 @@
     <title>Hello</title>
 </head>
 <body>
-<h1>Hello<th:block th:text="${username}"></th:block>!</h1>
+<h1>Hello, <th:block th:text="${username}">Gosho</th:block>!</h1>
 Welcome to Best-Cars!
 
 Please follow the  <a class="card-link" th:href="@{http://localhost:8080/user/activate(activation_code=*{activation_code})}">link</a> in order to activate your account.
