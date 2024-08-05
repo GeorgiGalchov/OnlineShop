@@ -20,6 +20,7 @@ public record CreateOfferDTO(@NotEmpty @Size(min = 5, max = 512) String descript
                              Integer year) {
 
     public static CreateOfferDTO empty() {
+
         return new CreateOfferDTO(null, null, null, null, null, null, null, null);
     }
 }

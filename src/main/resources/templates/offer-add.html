@@ -34,14 +34,14 @@
                                 th:each="model : ${brand.models()}"
                                 th:text="${model.name}"
                                 th:value="${model.id}"
-                                th:selected="*{modelId} == ${model.id}">
+                                th:selected="${model.id == *{modelId}}">
                             Model
                         </option>
 
                     </optgroup>
                 </select>
                 <p class="invalid-feedback errors alert alert-danger">
-                    Vechicle model is required.
+                    Vehicle model is required.
                 </p>
             </div>
             <!-- EO: model -->
