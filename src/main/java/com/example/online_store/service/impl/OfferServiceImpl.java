@@ -14,12 +14,9 @@ import com.example.online_store.repo.UserRepository;
 import com.example.online_store.service.MonitoringService;
 import com.example.online_store.service.OfferService;
 import com.example.online_store.service.aop.WarnIfExecutionExceeds;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.ManyToOne;
+
 import jakarta.transaction.Transactional;
 import java.math.BigDecimal;
-import java.sql.Types;
 import java.util.Objects;
 
 import java.util.Optional;

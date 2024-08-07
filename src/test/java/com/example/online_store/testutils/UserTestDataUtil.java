@@ -2,8 +2,10 @@ package com.example.online_store.testutils;
 
 import java.util.List;
 
+import com.example.online_store.model.entity.UserActivationCodeEntity;
 import com.example.online_store.model.entity.UserEntity;
 import com.example.online_store.model.enums.UserRoleEnum;
+import com.example.online_store.repo.UserActivationCodeRepository;
 import com.example.online_store.repo.UserRepository;
 import com.example.online_store.repo.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class UserTestDataUtil {
     @Autowired
     private UserRoleRepository userRoleRepository;
 
+    @Autowired
+    private UserActivationCodeRepository userActivationCodeRepository;
+
     public UserEntity createTestUser(String email) {
         return createUser(email, List.of(UserRoleEnum.USER));
     }
@@ -27,7 +32,6 @@ public class UserTestDataUtil {
     }
 
     private UserEntity createUser(String email, List<UserRoleEnum> roles) {
-
         var roleEntities = userRoleRepository.findAllByRoleIn(roles);
 
         UserEntity newUser = new UserEntity()
@@ -35,15 +39,16 @@ public class UserTestDataUtil {
                 .setEmail(email)
                 .setFirstName("Test user first")
                 .setLastName("Test user last")
-                .setRoles(
-                        roleEntities
-                );
+                .setRoles(roleEntities);
 
         return userRepository.save(newUser);
     }
 
     public void cleanUp() {
+        // Премахнете всички кодове за активация
+        userActivationCodeRepository.deleteAll();
+
+        // Премахнете всички потребители
         userRepository.deleteAll();
     }
-
 }
